@@ -13,6 +13,47 @@
   }
 
   /* -------------------------
+   Code Area Scroll
+   ------------------------- */
+#codeDisplay {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+#codeDisplay::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* -------------------------
+   Practice List Scroll (Custom Style)
+   ------------------------- */
+.practice-list {
+  overflow-y: auto;
+  scrollbar-width: thin;              /* for Firefox */
+  scrollbar-color: var(--green-dim) transparent;
+}
+
+/* Chrome, Edge, Safari custom scrollbar */
+.practice-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.practice-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.practice-list::-webkit-scrollbar-thumb {
+  background: var(--green-dim);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.practice-list::-webkit-scrollbar-thumb:hover {
+  background: var(--green-soft);
+}
+
+
+  /* -------------------------
      Reset
      ------------------------- */
   *{box-sizing:border-box}
@@ -318,6 +359,7 @@
     transform:translateY(10px);
     animation: popupIn .18s ease forwards;
   }
+  
   @keyframes popupIn { from {opacity:0; transform:translateY(30px)} to {opacity:1; transform:translateY(0)} }
 
   .popup h3{ margin:0 0 8px 0; color:var(--green-soft) }
