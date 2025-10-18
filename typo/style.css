@@ -128,6 +128,7 @@
     width:12px;height:12px;border-radius:50%;
     background:transparent;border:1px solid rgba(255,255,255,0.04);
   }
+  
   .practice-item.active{
     background: linear-gradient(90deg, rgba(90,255,126,0.03), rgba(59,240,92,0.02));
     border: 1px solid var(--green-dim);
@@ -279,11 +280,12 @@
   .caret {
     position:absolute;
     width:2px;
-    height:1.2em;
+    height:1em;
     background:var(--green-soft);
     animation: blink 1s steps(1) infinite;
     pointer-events:none;
   }
+
   @keyframes blink { 50%{ opacity:0 } }
 
   /* footer area inside main (controls) */

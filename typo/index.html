@@ -12,7 +12,7 @@
   <div class="sidebar">
     <div class="brand">
       <div class="logo">TYPO</div>
-      <div class="tag small">Learn by typing</div>
+      <div class="tag small"></div>
     </div>
 
     <div>
@@ -20,7 +20,7 @@
       <div class="lang-buttons" role="tablist" aria-label="Languages">
         <button class="lang-btn active" data-lang="js">JS</button>
         <button class="lang-btn" data-lang="py">PY</button>
-        <button class="lang-btn" data-lang="cpp">Java</button>
+        <button class="lang-btn" data-lang="java">Java</button>
       </div>
     </div>
 
@@ -47,12 +47,12 @@
   <div class="main-wrap">
     <div class="topbar">
       <div class="top-left">
-        <div style="color:var(--muted); font-size:13px">Typing Practice</div>
+        <div style="color:var(--muted); font-size:13px">Tip: click the code area and start typing — timer starts on first keypress</div>
       </div>
 
       <div class="top-right">
         <div id="timerPill" class="timer-pill" aria-live="polite">
-          ⏱️ <span id="timer">00:00</span>
+          ⏱️ <span id="timer"></span>
         </div>
         <button id="resetBtn" class="btn">Restart</button>
         <button id="nextBtn" class="btn primary">Next Practice</button>
@@ -68,7 +68,10 @@
     </div>
 
     <div class="controls">
-      <div class="small" style="margin-right:auto">Tip: click the code area and start typing — timer starts on first keypress</div>
+      <div class="small" style="margin-right:auto">Made by => Shivam Yadav </div>
+      <a href="https://x.com/shivamdotdev" target="_blank"> <img src="./public/twitter.png" alt=""  style="width: 1.4rem; height: 1.5rem ;"> </a>
+      <a href="https://github.com/SHIVAMYADAV25" target="_blank"><img src="./public/github.png" alt="" style="width: 1.4rem; height: 1.5rem ; background-color:white; border-radius: 100px;"> </a>
+     <a href="https://www.linkedin.com/in/shivam-yadav-0a5ba0351/" target="_blank" > <img src="./public/linkedin.png" alt="" style="width: 1.4rem; height: 1.5rem ; background-color:white; border-radius: 100px;"> </a>
     </div>
   </div>
 
@@ -76,7 +79,7 @@
   <div id="popupMask" class="popup-mask" role="dialog" aria-modal="true">
     <div class="popup" role="document">
       <h3> Session Summary</h3>
-
+      
       <div class="row">
         <div class="small">WPM</div>
         <div class="bignum" id="resWpm">0</div>
@@ -91,6 +94,6 @@
     </div>
   </div>
 
-    <script src="./script.js"></script>
+    <script src="./script.js" type="module"></script>
 </body>
 </html>
