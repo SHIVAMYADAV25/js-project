@@ -7,68 +7,90 @@
   <title>Document</title>
 </head>
 <body>
-    <div class="sidebar">
 
-      <div class="side-head">
-        <div>TYPO</div>
-        <div>Let's Practice</div>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="logo">TYPO</div>
+      <div class="tag small">Learn by typing</div>
+    </div>
+
+    <div>
+      <div style="color:var(--muted); font-size:12px; margin-bottom:8px">LANGUAGE</div>
+      <div class="lang-buttons" role="tablist" aria-label="Languages">
+        <button class="lang-btn active" data-lang="js">JS</button>
+        <button class="lang-btn" data-lang="py">PY</button>
+        <button class="lang-btn" data-lang="cpp">Java</button>
+      </div>
+    </div>
+
+    <div class="practice-panel">
+      <h4>Practice =></h4>
+      <div class="practice-list" id="practiceList" role="list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="side-stats">
+      <div class="stat">
+        <div class="num" id="doneCount">0</div>
+        <div class="label small">DONE</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="totalCount">0</div>
+        <div class="label small">TOTAL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+    <div class="topbar">
+      <div class="top-left">
+        <div style="color:var(--muted); font-size:13px">Typing Practice</div>
       </div>
 
-      <div class="side-lang">
-        <div>LANGUAGE</div>
-        <div class="lang-sel">
-          <div class="btn-lang active">JS</div>
-          <div class="btn-lang">PY</div>
-          <div class="btn-lang">JAVA</div>
+      <div class="top-right">
+        <div id="timerPill" class="timer-pill" aria-live="polite">
+          ⏱️ <span id="timer">00:00</span>
         </div>
+        <button id="resetBtn" class="btn">Restart</button>
+        <button id="nextBtn" class="btn primary">Next Practice</button>
       </div>
+    </div>
 
-      <div>practice => </div>
-      <div class="practice-list">
-        <div class="ques">
-        <div class="practice-ques">variable</div>
-        <div class="practice-ques active">loop</div>
-        <div class="practice-ques">hello</div>
-        <div class="practice-ques">starter</div>
-        <div class="practice-ques">Hard</div>
-        <div class="practice-ques">easy</div>
-        <div class="practice-ques">while</div>
-        <div class="practice-ques">do-while</div>
-        <div class="practice-ques">max-min</div>
-        <div class="practice-ques">min-max</div>
-        </div>
-        
-      </div>
-      <div class="short-progress">
-        <div class="state">
-          <div>0</div> <div>DONE</div>
-        </div>
-        <div class="state">
-          <div>3</div> <div>TOTAL</div>
+    <div class="board-wrap">
+      <div class="code-card">
+        <div id="codeDisplay" tabindex="0" aria-label="Code typing area" spellcheck="false">
+          <div style="opacity:.5; color:var(--muted)">Choose a language and a practice topic from the left to begin.</div>
         </div>
       </div>
     </div>
 
+    <div class="controls">
+      <div class="small" style="margin-right:auto">Tip: click the code area and start typing — timer starts on first keypress</div>
+    </div>
+  </div>
 
-    <div class="main-wrap">
-      <div class="top-main">
-        <div class="top-right">hello it's me !!</div>
+  <!-- RESULT POPUP -->
+  <div id="popupMask" class="popup-mask" role="dialog" aria-modal="true">
+    <div class="popup" role="document">
+      <h3> Session Summary</h3>
 
-        <div class="top-right">
-
-          <div class="time-pill">
-            <span>00:00</span>
-          </div>
-
-          <button class="btn">Restart</button>
-          <button class="btn primary">Next practice</button>
-          
-        </div>
+      <div class="row">
+        <div class="small">WPM</div>
+        <div class="bignum" id="resWpm">0</div>
       </div>
-
-
+      <div class="row"><div class="small">Accuracy</div><div class="bignum" id="resAcc">0%</div></div>
+      <div class="row"><div class="small">Errors</div><div class="bignum" id="resErr">0</div></div>
+      <div class="row"><div class="small">Time</div><div class="bignum" id="resTime">00:00</div></div>
+      <div class="actions">
+        <button id="popupRestart" class="btn">Restart</button>
+        <button id="popupNext" class="btn primary">Next Practice</button>
+      </div>
     </div>
+  </div>
 
-    </div>
+    <script src="./script.js"></script>
 </body>
 </html>

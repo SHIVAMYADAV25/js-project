@@ -1,10 +1,61 @@
-const code = `// Lesson: Declaring Variables
-              // Topic: const, let, var
-              let chaiType = "Masala";
-              const price = 20;
-              var isHot = true;`;
-        
-const editor = document.getElementById("editor")
+/* snippets */
+const SNIPPETS = [
+  { id:'js-var-1', lang:'js', topic:'Variables', text: `// Lesson: Declaring Variables\n// Topic: const, let, var\nlet chaiType = "Masala";\nconst price = 20;\nvar isHot = true;`},
+  { id:'js-if-1', lang:'js', topic:'Conditional Statements', text:
+`// Lesson: If-Else
+if (score > 50) {
+  console.log("Great");
+} else {
+  console.log("Keep trying");
+}`},
+  { id:'js-for-1', lang:'js', topic:'Loops', text:
+`// For loop example
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}`},
+  { id:'py-var-1', lang:'py', topic:'Variables', text:
+`# Variables in Python
+tea_type = "Masala"
+price = 20
+is_hot = True`},
+  { id:'py-for-1', lang:'py', topic:'Loops', text:
+`# For loop
+for i in range(5):
+    print(i)`},
+  { id:'cpp-arr-1', lang:'cpp', topic:'Arrays', text:
+`// C++ array
+#include <iostream>
+int main() {
+  int arr[3] = {1, 2, 3};
+  std::cout << arr[0];
+}`}
+];
+
+
+let state ={
+    lang:"js",
+    currentSnippet : null,
+    idx:0,
+    correctChar:0,
+    totalTyped: 0,
+    started: false,
+    startTime: null,
+    elapsed: 0,
+    timeInterval: null,
+    doneCount:0,
+};
+
+
+
+
+
+
+
+
+
+
+
+const editor = document.getElementById("codeDisplay")
 const chars = Array.from(code);  //array mai convert kardiya
 
 chars.forEach((ch,idx) =>{
