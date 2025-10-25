@@ -19,10 +19,5 @@
 }
 
 .Box{
-    width: 100px;
     height: 100px;
-    padding: 12px;
-    border-radius: 12px;
-    background-color: #acf231;
-    text-align: center;
 }
