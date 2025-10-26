@@ -1,139 +1,244 @@
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-if(!window.SpeechRecognition){
-    alert("bhai tera broswer support nhi karta hai vioce feature ko")
-}else{
+if (!window.SpeechRecognition) {
+    alert("Your browser does not support voice features 😔");
+} else {
     const recognition = new SpeechRecognition();
-
     recognition.lang = "en-IN";
     recognition.continuous = true;
 
-    let content = "";
-    const startBtn = document.getElementById("start")
+    const startBtn = document.getElementById("start");
+    const canvas = document.getElementById("canvas");
 
-    recognition.addEventListener("result" , (e) =>{
-        console.log(e.results)
+    let content = "";
+    let elementCount = 0;
+    let selectedElement = canvas;
+
+    recognition.addEventListener("result", (e) => {
         let transcript = Array.from(e.results)
-                            .map( result => result[0])
-                            .map(result => result.transcript)
-                            .join("")
-                            .toLowerCase()
+            .map(result => result[0].transcript)
+            .join("")
+            .toLowerCase();
 
         let newText = transcript.replace(content, "");
+        console.log("Heard:", newText);
 
-        if (newText.includes("create")) createBox() ; 
-        if (newText.includes("background")) CSSstyle(newText);
-        if (newText.includes("margin")) GiveMargine(newText);
-        if (newText.includes("padding")) GivePadding(newText);
-        if (newText.includes("with")) GiveWidth(newText);
-        if (newText.includes("connect")) console.log("connect");
+        handleVoiceCommand(newText.trim());
         content = transcript;
-        
-    })
+    });
 
-    recognition.addEventListener("end" ,() =>{
+    recognition.addEventListener("end", () => recognition.start());
+
+    startBtn.addEventListener("click", () => {
         recognition.start();
-    })
+        startBtn.textContent = "🎤 Listening...";
+    });
 
-    startBtn.addEventListener("click", () =>{
-        recognition.start();
-        startBtn.textContent = "Listening..... "
-    })
-}
-
-let canvas = document.getElementById("canvas")
-
-
-function createBox(){
-    let div = document.createElement("div");
-    canvas.appendChild(div)
-    div.className = "Box";
-}
-
-
-
-function CSSstyle(newtext) {
-    console.log("Heard command:", newtext);
-
-    // Support both color and colour
-    let text = "";
-    if (newtext.includes("give background color")){
-        text = newtext.split("give background color")[1];
-    } else if (newtext.includes("give background colour")){
-        text = newtext.split("give background colour")[1];
-    }else if(newtext.includes("background colour")){
-        text = newtext.split("background colour")[1];
+    // ========== 🧩 MAIN VOICE HANDLER ==========
+    function handleVoiceCommand(text) {
+        text = fixSpeechNumbers(text.toLowerCase());
+        if (text.includes("create")) createElementFromVoice(text);
+        else if (text.includes("select")) selectByVoice(text);
+        else if (text.includes("background")) applyStyle("backgroundColor", text);
+        else if (text.includes("display")) applyStyle("display", text);
+        else if (text.includes("height") || text.includes("fight"))applyStyle("height", text, "px");
+        else if (text.includes("width") || text.includes("with")) applyStyle("width", text, "px");
+        else if (text.includes("margin")) applyStyle("margin", text, "px");
+        else if (text.includes("padding")) applyStyle("padding", text, "px");
     }
 
-    if (!text){
-        console.warn("No valid color phrase detected");
-        return;
-    }
 
-    text = text.trim();
-    console.log("Extracted value:", text);
-
-    let value = normalizeColorValue(text);
-    console.log("Normalized color value:", value);
-
-    let divs = document.getElementsByClassName("Box");
-    if (divs.length > 0){
-        let div = divs[divs.length - 1];
-        div.style.backgroundColor = value;
-        console.log("Applied color:", value);
-    } else {
-        console.warn("No box found to apply color.");
-    }
+function fixSpeechNumbers(text) {
+    return text
+        .replace(/\bto\b/g, "two")
+        .replace(/\btoo\b/g, "two")
+        .replace(/\btu\b/g, "two")
+        .replace(/\bfor\b/g, "four")
+        .replace(/\bfree\b/g, "three")  // sometimes “three” sounds like “free”
+        .replace(/\bwon\b/g, "one")
+        .replace(/\bselected\b/g, "select")
 }
 
 
+    function createElementFromVoice(text) {
+    // Remove filler words
+    text = text.replace(/\b(create|creative)\b/g, "div")
+    text = text.replace(/\b(a|the|to|and|from|of|inside|in)\b/g, "").trim();
 
-function normalizeColorValue(value = "") {
-    if (!value) return "";
+    const match = text.match(/create\s+(\w+)/);
+    if (!match) return;
 
-    // Convert "hash one one one" → "#111"
-    value = value.replace(/hash/gi, "#");
-    value = value.replace(/has/gi, "#");
-    value = value.replace(/number/gi, "#");
+    let tag = fixVoiceErrors(match[1]);
+    if (!tag) return;
 
-    // Remove spaces like "# 1 1 1" → "#111"
-    value = value.replace(/\s+/g, "");
+    elementCount++;
+    const el = document.createElement(tag === "box" ? "div" : tag);
+    el.dataset.voiceid = `${tag} ${elementCount}`;
+    el.textContent = `${tag} ${elementCount}`;
+    el.className = "voice-element";
+    selectedElement.appendChild(el);
 
-    // Convert spoken numbers to digits
-    const map = {
-        one: "1", two: "2",to : "2" , three: "3", four: "4", five: "5",
-        six: "6", seven: "7", eight: "8", nine: "9", zero: "0"
+    selectedElement = el;
+    highlightSelection(el);
+
+    console.log("✅ Created:", el.dataset.voiceid);
+}
+
+
+    function fixVoiceErrors(word) {
+    word = word.trim().toLowerCase();
+
+    // Common misheard replacements
+    const corrections = {
+        dev: "div",
+        day: "div",
+        dey: "div",
+        deev: "div",
+        deep: "div",
+        boxx: "box",
+        back: "box",
+        span: "span",
+        buton: "button",
+        baton: "button",
+        navs: "nav",
+        nab: "nav",
+        header: "header",
+        foot: "footer",
+        parra: "p",
+        paragraph: "p",
+        secton: "section",
+        siction: "section",
+        image: "img",
+        pic: "img",
+        picture: "img"
     };
-    for (const [word, digit] of Object.entries(map)) {
-        const regex = new RegExp("\\b" + word + "\\b", "gi");
-        value = value.replace(regex, digit);
+
+    for (const [wrong, right] of Object.entries(corrections)) {
+        if (word.includes(wrong)) return right;
     }
 
-    return value;
+    // fallback
+    return word;
+}
+
+    // ========== 🎯 SELECT ELEMENT ==========
+    function selectByVoice(text) {
+        text = text.replace(/\b(due|give|team|day|tube)\b/g, "div");
+        const match = text.match(/select\s+(\w+)\s+(\w+)/);
+
+        if (!match) return;
+
+        const tag = match[1];
+        const numberWord = match[2];
+        const num = convertNumberWord(numberWord);
+        const id = `${tag} ${num}`;
+
+        const el = document.querySelector(`[data-voiceid="${id}"]`);
+        if (el) {
+            selectedElement = el;
+            highlightSelection(el);
+            console.log("🎯 Selected:", id);
+        } else {
+            console.log("⚠️ Element not found:", id);
+        }
+    }
+
+    // ========== 🎨 APPLY STYLES ==========
+    function applyStyle(styleProp, text, unit = "") {
+        // console.log(" inside :" , styleProp, text, unit)
+        if (!selectedElement) {
+            console.log("⚠️ No element selected!");
+            return;
+        }
+
+        // console.log(selectedElement)
+
+        let value = extractValueAfterKeyword(text, styleProp);
+        // console.log(value);
+        
+        // console.log(isNaN(value))
+        if (!value) return;
+
+        // console.log(isNaN(value))
+
+        if (isNaN(value)) {
+            selectedElement.style[styleProp] = value.trim();
+        } else {
+            selectedElement.style[styleProp] = value + unit;
+        }
+
+        console.log(`🎨 ${styleProp}: ${value}${unit}`);
+    }
+
+
+function fixVoiceErrorsInStyle(word) {
+    word = word.trim().toLowerCase();
+
+    // Common misheard replacements
+    const corrections = {
+        with: "width",
+        "background colour":"backgroundColor",
+        lock : "block"
+    };
+
+    for (const [wrong, right] of Object.entries(corrections)) {
+        word = word.replace(wrong,right)
+    }
+
+    // fallback
+    return word;
 }
 
 
-function GiveWidth(voicetext){
-    let value = voicetext.split("with")[1];
-    let div1 = document.querySelector(".Box")
-    div1.style.width = value + "px"
-    // console.log(value.trim());
+    // ========== 🔎 HELPERS ==========
+    function highlightSelection(el) {
+        document.querySelectorAll("[data-voiceid]").forEach(e => e.style.outline = "");
+        el.style.outline = "3px solid #00ff7f";
+    }
+
+    function extractValueAfterKeyword(text, keyword) {
+        text = fixVoiceErrorsInStyle(text);
+        // console.log(text);
+        let value = text.split(keyword)[1];
+        // console.log(value)
+        if (!value) return "";
+        value = value.trim();
+        value = normalizeColorValue(value);
+        console.log(value)
+        return value;
+    }
+
+    function normalizeColorValue(value = "") {
+
+        if (!value) return "";
+
+        value = value.toLowerCase();
+
+    // Replace spoken “hash / has / number” → #
+        value = value.replace(/\b(hash|has|number|pound|sharp)\b/g, "#");
+
+    // Replace spaces → nothing (“# 1 1 1” → “#111”)
+        value = value.replace(/\s+/g, "");
+
+        const map = {
+            one: "1", two: "2", three: "3", four: "4", five: "5",
+            six: "6", seven: "7", eight: "8", nine: "9", zero: "0"
+        };
+        for (const [word, digit] of Object.entries(map)) {
+            const regex = new RegExp("\\b" + word + "\\b", "gi");
+            // console.log(regex)
+            value = value.replace(regex, digit);
+            // console.log(value)
+        }
+        // console.log(value.replace(/\s+/g, ""))
+        return value.replace(/\s+/g, "");
+    }
+
+    function convertNumberWord(word) {
+        const numberMap = {
+            one: 1, two: 2, three: 3, four: 4, five: 5,
+            six: 6, seven: 7, eight: 8, nine: 9, ten: 10
+        };
+        return numberMap[word] || parseInt(word);
+    }
 }
-
-
-function GiveMargine(voicetext){
-    let value = voicetext.split("margin")[1];
-    // console.log(value)
-    let div1 = document.querySelector(".Box")
-    div1.style.margin = value + "px"
-    // console.log(value.trim());
-}
-
-function GivePadding(voicetext){
-    let value = voicetext.split("padding")[1];
-    // console.log(value)
-    let div1 = document.querySelector(".Box")
-    div1.style.padding = value + "px"
-    // console.log(value.trim());
-}
-
