@@ -18,8 +18,9 @@ let stepIndex = 0;
 
 function renderCode(line) {
 codeBox.innerHTML = codeLines
-    .map((text,i) => `<div class="${line === i+1 ? 'highlight-line' : ""}"> ${text} </div>`).join("")
+    .map((text,i) =>  `<div class="${line === i+1 ? 'highlight-line' : ""}"> ${text} </div>`).join("")  
 }
+
 
 function create_Array(){
     let arr = Array.from({length:8}, () => Math.floor(Math.random() * 50) + 5 );
@@ -71,7 +72,7 @@ function displayArray(a, highlightA, highlightB, mode){
 function playstep(){
     // console.log("hello")
     if(stepIndex >= steps.length){
-        explanationBox.textContent = "✅ Sorting Completed.";
+        explanationBox.textContent = "👍 Sorting Completed.";
         renderCode(null)
         return
     }

@@ -1,0 +1,148 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+
+
+.quicksand{
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.sidebar{
+    width: 230px;
+    height: 100vh;
+    background-color: #FFF9E8;
+    color: #5A4B2F;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    border: 3px #ffc518 ;
+    border-style: none dashed none none;
+}
+
+.sidebar a{
+    display: block;
+    padding: 12px 10px;
+    margin: 6px 0;
+    text-decoration: none;
+    color: #8C7A4F;
+    border-radius:6px ;
+    cursor: pointer;
+}
+
+.sidebar a:hover{
+    background-color: #F4C63A;
+}
+
+.sidebar ul{
+ list-style-type: none;
+}
+
+.side_upper{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.sidebar .logo{
+    width: 100%;
+    object-fit: cover;
+    height: 60px;
+    background-color: transparent;
+    border-radius: 40px;
+}
+
+.main_content{
+    margin-left: 230px;
+    /* width: 230px; */
+    padding: 30px;
+    color: #222;
+}
+
+.main_head h3{
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.main_mid button{
+    display: inline-block;
+    padding: 9px 14px;
+    background-color: #f8c733;
+    color: #555;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.main_mid button:hover{
+    background-color: #f7ab27 ;  
+}
+
+.habit-list{
+    margin-top: 10px;
+    background-color: wheat;
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1p solid #ddd;
+    height: 72vh;
+}
+
+
+
+.line{
+    height: 2px;
+    background-color: #ffe083;
+    margin-bottom: 8px;
+}
+
+.line-btn{
+    height: 2px;
+    background-color: #ffe083;
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
+
+
+.line-title{
+    height: 2px;
+    background-color: #ff7300;
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+/* Habit row grid layout */
+.habit-row {
+  display: grid;
+  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.5fr;
+  align-items: center;
+  margin: 8px 0;
+  padding: 6px 0;
+  color: #5A4B2F;
+  font-size: 15px;
+}
+
+/* Header row same layout */
+.habit-header-row {
+  display: grid;
+  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.5fr;
+  font-weight: 600;
+  color: #5A4B2F;
+  margin-bottom: 6px;
+}
