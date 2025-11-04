@@ -10,16 +10,16 @@
 
     <div class="sidebar">
         <div class="side_upper">
-            <img class="logo" src="./assets/Gemini_Generated_Image_m54fzzm54fzzm54f.png" alt="Logo">
+            <img class="logo" src="./assets/logo.png" alt="Logo" onclick="window.location.href='./index.html'">
         </div>
 
         <div class="side_middle">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Add Habit</a></li>
-                <li><a href="#">Stats</a></li>
-                <li><a href="#">Setting</a></li>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./pages/dashboard.html">Dashboard</a></li>
+                <li><a href="./pages/add-habit.html">Add Habit</a></li>
+                <li><a href="./pages/status.html">Stats</a></li>
+                <li><a href="./pages/setting.html">Setting</a></li>
             </ul>
         </div>
     </div>
@@ -31,41 +31,19 @@
         </div>
 
         <div class="main_mid">
-            <button>Add New Habit</button>
-            <button>View Today's Habits</button>
+            <a href="./pages/add-habit.html">Add New Habit</a>
+            <a id="Todaydata">View Today's Habits</a>
         </div>
 
         <div class="line-btn"></div>
 
-        <div class="habit-list">
-
-            <div class="habit-header-row">
-                <div>Habit</div>
-                <div>Status</div>
-                <div>Streak</div>
-                <div>Start</div>
-                <div>End</div>
-            </div>
-            <div class="line-title"></div>
-
-            <div class="habit-row">
-                <div class="habit-name">Drinking Water</div>
-                <div class="habit-status">Pending</div>
-                <div class="habit-streak">4</div>
-                <div class="habit-start">1/10/23</div>
-                <div class="habit-end">Never</div>
-            </div>
-
-            <div class="habit-row">
-                <div class="habit-name">Running</div>
-                <div class="habit-status">Done</div>
-                <div class="habit-streak">10</div>
-                <div class="habit-start">5/11/23</div>
-                <div class="habit-end">Never</div>
-            </div>
+        <div class="habit-list" id="habit-list">
         </div>
 
         <div>Lorem ipsum dolor sit, amet consectetur adipisicing eli</div>
     </div>
+
+    <script src="./js/app.js" type="module"></script>
+    <script src="./js/db.js"></script>
 </body>
 </html>

@@ -33,6 +33,10 @@
     border-style: none dashed none none;
 }
 
+.main_mid a{
+    text-decoration: none;
+}
+
 .sidebar a{
     display: block;
     padding: 12px 10px;
@@ -78,7 +82,7 @@
     color: #555;
 }
 
-.main_mid button{
+.main_mid a{
     display: inline-block;
     padding: 9px 14px;
     background-color: #f8c733;
@@ -90,7 +94,7 @@
     cursor: pointer;
 }
 
-.main_mid button:hover{
+.main_mid a:hover{
     background-color: #f7ab27 ;  
 }
 
@@ -130,7 +134,7 @@
 /* Habit row grid layout */
 .habit-row {
   display: grid;
-  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.5fr;
+  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.8fr 0.5fr;
   align-items: center;
   margin: 8px 0;
   padding: 6px 0;
@@ -141,8 +145,13 @@
 /* Header row same layout */
 .habit-header-row {
   display: grid;
-  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.5fr;
+  grid-template-columns: 1.7fr 0.9fr 0.8fr 0.8fr 0.8fr 0.5fr;
   font-weight: 600;
   color: #5A4B2F;
   margin-bottom: 6px;
 }
+
+.habit-row > .habit-streak{
+    padding-left: 2px ;
+}
+
