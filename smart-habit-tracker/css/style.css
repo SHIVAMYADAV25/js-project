@@ -45,9 +45,11 @@
     color: #8C7A4F;
     border-radius:6px ;
     cursor: pointer;
+    transition:all .20s ease;
 }
 
 .sidebar a:hover{
+    transform:translateX(6px);
     background-color: #F4C63A;
 }
 
@@ -140,6 +142,8 @@
   padding: 6px 0;
   color: #5A4B2F;
   font-size: 15px;
+  transition: all 0.3s ease;
+  max-height: 32px;
 }
 
 /* Header row same layout */
@@ -155,3 +159,26 @@
     padding-left: 2px ;
 }
 
+
+.habit-row:hover{
+    cursor: pointer;
+    padding: 6px 20px;
+    border-radius: 6px;
+    background: #ffeeba;
+}
+
+
+
+.habit-name{
+    font-weight: 600;
+    color: #343333;
+}
+
+.habit-status{
+    text-transform: capitalize;
+}
+
+.notAccess{
+    filter: blur(1px);
+    opacity: 0.5;
+}
