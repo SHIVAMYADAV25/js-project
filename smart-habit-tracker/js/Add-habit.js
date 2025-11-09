@@ -9,7 +9,9 @@ form.addEventListener("submit" , function(e) {
     let frequency = document.getElementById("HabitFrequency").value;
 
     let today = new Date(getTodayDate());
+    console.log(today)
     let startDate = new Date(habitStart);
+    console.log(startDate)
     let initialStatus = "Pending"; // default
 
     if(startDate > today){

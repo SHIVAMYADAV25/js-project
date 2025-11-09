@@ -4,6 +4,7 @@ import {saveHabits , getHabits ,getTodayDate} from "./db.js";
 let habits = checkStreakOnLoad();
 renderHabit(habits);
 attachRowEvents();
+initDailyResetEngine();
 
 
 export function renderHabit(filter_habit){
@@ -83,8 +84,10 @@ rows.forEach(row => {
 
                     const status = (habit.status || "").toLowerCase();
                     // console.log(status)
-
-                    if(status === "pending"){
+                    if(status === "done" && habit.lastDoneDate === todayDate){
+                        return
+                    }
+                    if(status === "pending" || status === "Missed"){
                         if(habit.lastDoneDate !== todayDate){
                             habit.streak += 1;
                             habit.lastDoneDate = todayDate;
@@ -92,13 +95,9 @@ rows.forEach(row => {
                             
                         }
                         habit.status = "Done";
-                    }else if(status === "done" && habit.lastDoneDate === todayDate){
-                        habit.streak = Math.max(0,habit.streak-1);
-                        habit.lastDoneDate = null;
-                        habit.status = "Pending";
-                    }else{
-                        console.log(habit.lastDoneDate === todayDate)
                     }
+
+
                     saveHabits(allHabits);
                     renderHabit(allHabits);
                     attachRowEvents()
@@ -108,34 +107,123 @@ rows.forEach(row => {
 })
 }
 
-function checkStreakOnLoad(){
-    let allHabits = getHabits();
-    console.log(allHabits)
-    const today = getTodayDate();
+function checkStreakOnLoad() {
+  let allHabits = getHabits();
+  const today = getTodayDate();
+  const now = new Date(today);
 
-    allHabits.forEach(habit =>{
-        if(!habit.lastDoneDate) return;
+  // Clean corrupted data
+  allHabits.forEach(h => {
+    if (typeof h.missedDays !== "number" || h.missedDays < 0 || h.missedDays > 36500) {
+      h.missedDays = 0;
+    }
+  });
 
-        const last = new Date(habit.lastDoneDate);
-        const now = new Date(today);
+  allHabits.forEach(habit => {
+    const startDate = new Date(habit.start);
 
-        const diffDay = Math.floor((now-last)/(1000*60*60*24))
+    // 🚫 If already done today — don't touch anything
+    if (habit.lastDoneDate === today && habit.status === "Done") {
+      return;
+    }
 
-        if(diffDay === 0){
-            return // done today
-        }else if(diffDay === 1){
-            // missed yesterday
-            habit.streak = 0;
-            habit.missedDays = (habit.missedDays || 0) + 1 ;
-            habit.status = "Pending";
-        }else if(diffDay > 1){
-            // missed multiple days
-            habit.missedDays = (habit.missedDays || 0) + (diffDay - 1);
-            habit.streak = 0;
-            habit.status = "Missed"
-        }
-    })
+    const diffStart = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
 
-    saveHabits(allHabits);
-    return allHabits;
+    // 🔓 Starts today
+    if (diffStart === 0) {
+      habit.status = "Pending";
+      habit.lastDoneDate = habit.lastDoneDate || null;
+      habit.streak = habit.streak || 0;
+      return;
+    }
+
+    // 🔓 Unlock if past start date
+    if (habit.status === "Locked" && now >= startDate) {
+      habit.status = "Pending";
+    }
+
+    // 🛑 Not started yet → skip
+    if (now < startDate) return;
+
+    // 🛑 No lastDoneDate → skip missed logic
+    if (!habit.lastDoneDate || isNaN(new Date(habit.lastDoneDate))) return;
+
+    const last = new Date(habit.lastDoneDate);
+    const diffDay = Math.floor((now - last) / (1000 * 60 * 60 * 24));
+
+    if (diffDay === 0) return; // done today ✅
+    else if (diffDay === 1) {
+    //   habit.streak = 0;
+    //   habit.missedDays = (habit.missedDays || 0) + 1;
+      habit.status = "Pending";
+    } else if (diffDay > 1) {
+      habit.missedDays = (habit.missedDays || 0) + (diffDay - 1);
+      habit.streak = 0;
+      habit.status = "Missed";
+    }
+  });
+
+  saveHabits(allHabits);
+  return allHabits;
 }
+
+
+
+
+function initDailyResetEngine(){
+    const today = getTodayDate();
+    let lastChecked = localStorage.getItem("lastCheckedDate");
+
+    if(!lastChecked){
+        localStorage.setItem("lastCheckedDate" , today);
+        lastChecked = today;
+    }
+
+    function checkDailyReset(){
+        const current = getTodayDate();
+        // console.log(current)
+        // console.log("last: ",lastChecked)
+        if(current !== lastChecked){
+            const updateHabits = checkStreakOnLoad();
+            console.log(current)
+        console.log("inside last: ",lastChecked)
+            updateHabits.forEach(habit => {
+                const startDate = new Date(habit.start);
+                const now = new Date(current);
+
+                console.log(habit.status)
+
+                if(habit.status === "Locked" && now >= startDate){
+                    habit.status = "Pending";
+                }
+            });
+
+            console.log("helo",updateHabits)
+            saveHabits(updateHabits);
+            renderHabit(updateHabits);
+            attachRowEvents();
+
+            lastChecked = current
+            localStorage.setItem("lastCheckedDate", current);
+        }
+    }
+
+    checkDailyReset();
+    setInterval(checkDailyReset, 60000);
+}
+
+
+// checkStreakOnLoad()
+// Handles daily resets correctly
+// Keeps streak continuity between consecutive days
+// Resets only if you miss 2+ days.
+
+// attachRowEvents()
+// Prevents double-click increment
+// Prevents toggling Done back to Pending in the same day
+// Updates localStorage immediately after marking.
+
+// initDailyResetEngine()
+// Runs once per new calendar day
+// Calls checkStreakOnLoad() only when day changes
+// Keeps your data fresh without constant overwrites.
