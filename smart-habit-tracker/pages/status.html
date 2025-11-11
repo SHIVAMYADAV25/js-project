@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Builder Dashboard</title>
+  <link rel="stylesheet" href="../css/status.css" />
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #F7F1E5; /* soft neutral background */
+        padding: 40px;
+    }
+</style>
+</head>
+<body>
+
+
+  <div class="sidebar roboto-mono">
+        <div class="side_upper">
+            <img class="logo" src="../assets/logo.png" alt="Logo" onclick="window.location.href='../index.html'">
+        </div>
+
+        <div class="side_middle">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./add-habit.html">Add Habit</a></li>
+                <li><a href="./status.html">Stats</a></li>
+                <li><a href="./setting.html">Setting</a></li>
+            </ul>
+        </div>
+    </div>
+    
+  <div class="dashboard-container quicksand">
+    <h3 class="header">Habit Dashboard</h3>
+    <p class="subtitle">Track your progress and daily consistency</p>
+
+    <div class="line-btn"></div>
+  <div class="stats-grid">
+    <div class="card done">
+      <h3> Done</h3>
+      <p id="doneToday">0</p>
+    </div>
+    <div class="card pending">
+      <h3> Pending</h3>
+      <p id="pendingToday">0</p>
+    </div>
+    <div class="card missed">
+      <h3> Missed</h3>
+      <p id="missedToday">0</p>
+    </div>
+    <div class="card total">
+      <h3> Total Habits</h3>
+      <p id="totalHabits">0</p>
+    </div>
+  </div>
+
+  <div class="line-btn"></div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Habit Name</th>
+                <th>Current Streak</th>
+                <th>Longest Streak</th>
+                <th>Missed Days</th>
+                <th>Start Date</th>
+                <th>Last Done</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Meditation</td>
+                <td>12</td>
+                <td>22</td>
+                <td>4</td>
+                <td>2025-10-10</td>
+                <td>2025-11-10</td>
+            </tr>
+            <tr>
+                <td>Reading</td>
+                <td>3</td>
+                <td>5</td>
+                <td>6</td>
+                <td>2025-10-28</td>
+                <td>2025-11-09</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <div class="line-btn"></div>
+
+
+
+  </div>
+
+  <script type="module" src="../js/status.js"></script>
+</body>
+</html>
