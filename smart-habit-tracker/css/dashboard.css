@@ -203,7 +203,9 @@
   justify-content: space-between;
   color: #8C7A4F;
   font-size: 0.85rem;
+  gap: 1.5px;
 }
+
 .heatmap-grid {
   display: grid;
   align-items: start;

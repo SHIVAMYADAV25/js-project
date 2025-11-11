@@ -7,6 +7,7 @@ form.addEventListener("submit" , function(e) {
     let habitStart = document.getElementById("habitStart").value;
     let habitTarget = document.getElementById("habitTarget").value;
     let frequency = document.getElementById("HabitFrequency").value;
+    let habitEnd = document.getElementById("habitEnd").value;
 
     let today = new Date(getTodayDate());
     console.log(today)
@@ -23,7 +24,7 @@ form.addEventListener("submit" , function(e) {
         status : initialStatus,
         streak : 0,
         start: habitStart,
-        end:"Never",
+        end:habitEnd,
         Target : habitTarget,
         frequency:frequency,
         lastDoneDate:null,
