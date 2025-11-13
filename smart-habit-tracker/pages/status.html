@@ -9,9 +9,44 @@
   <style>
     body {
         font-family: Arial, sans-serif;
-        background: #F7F1E5; /* soft neutral background */
-        padding: 40px;
     }
+
+          .timeline-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .timeline-day {
+        background: #ffc5b4;
+        border: 1px solid #ff5218;
+        padding: 14px 18px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      }
+
+      .timeline-day h3 {
+        font-size: 1rem;
+        color: #5A4B2F;
+        margin-bottom: 8px;
+      }
+
+      .timeline-entry {
+        margin-left: 10px;
+        font-size: 0.9rem;
+      }
+
+      .timeline-entry span.done {
+        color: #2ecc71;
+        font-weight: 600;
+      }
+
+      .timeline-entry span.missed {
+        color: #e74c3c;
+        font-weight: 600;
+      }
+
 </style>
 </head>
 <body>
@@ -92,7 +127,16 @@
     </table>
 </div>
 
-    <div class="line-btn"></div>
+    <div class="line-btn" style="margin-top: 12px;"></div>
+
+    <section id="activityTimelineSection">
+  <h2>Activity Timeline</h2>
+
+  <div id="timelineContainer" class="timeline-container">
+    
+    <!-- JS will insert timeline rows here -->
+  </div>
+</section>
 
 
 
