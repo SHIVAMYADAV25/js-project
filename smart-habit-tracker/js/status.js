@@ -1,4 +1,9 @@
 import {saveHabits , getHabits , getTodayDate} from "./db.js";
+const doneEl = document.getElementById("doneToday"); 
+const pendingEl = document.getElementById("pendingToday"); 
+const missedEl = document.getElementById("missedToday"); 
+const totalEl = document.getElementById("totalHabits"); 
+const tbinsert = document.getElementById("tbinsert"); 
 
 function getLast7Days(){
     const days = [];
@@ -63,5 +68,47 @@ function renderTimeline(){
 }
 
 document.addEventListener("DOMContentLoaded",() => {
+    listTable();
+    dashboardRender();
     renderTimeline();
 })
+
+
+function dashboardRender(){
+  let allHabits = getHabits();
+
+  let missed = 0 , pending = 0 , done = 0 ;
+
+  allHabits.forEach(e => {
+    switch(e.status){
+      case "Done" : done++; break;
+      case "Pending" : pending++; break;
+      case "Missed" : missed++; break;
+    }
+  });
+
+  totalEl.textContent = allHabits.length;
+  doneEl.textContent = done;
+  missedEl.textContent = missed;
+  pendingEl.textContent = pending;
+}
+
+
+function listTable(){
+    let allHabits = getHabits();
+
+    tbinsert.innerHTML = "";
+
+    allHabits.forEach((e)=>{
+        tbinsert.innerHTML += `
+            <tr>
+                <td>${e.name}</td>
+                <td>${e.streak}</td>
+                <td>22</td>
+                <td>${e.missedDays}</td>
+                <td>${e.start}</td>
+                <td>${e.end}</td>
+            </tr>
+        `
+    })
+}

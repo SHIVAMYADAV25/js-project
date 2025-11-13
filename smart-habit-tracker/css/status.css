@@ -177,10 +177,54 @@ tbody tr:nth-child(odd) {
 tbody tr:hover {
     background: #FEC47D; /* full accent color on hover */
     color: #2F2F2F;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 th {
     background: #E07A5F;
     color: white;
+}
+
+.activityTimelineSection{
+  padding: 20px;
+}
+
+.timeline-container {
+  box-shadow: 0 0 20px rgba(0,0,0,0.08);
+  padding: 20px;
+  background-color: #ffe2e2;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-radius: 18px;
+}
+
+.timeline-day {
+  background: #ffc5b4;
+  border: 1px solid #ff5218;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.timeline-day h3 {
+  font-size: 1rem;
+  color: #5A4B2F;
+  margin-bottom: 8px;
+}
+
+.timeline-entry {
+  margin-left: 10px;
+  font-size: 0.9rem;
+}
+
+.timeline-entry span.done {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.timeline-entry span.missed {
+  color: #e74c3c;
+  font-weight: 600;
 }
