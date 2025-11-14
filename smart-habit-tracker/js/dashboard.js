@@ -35,23 +35,31 @@ function renderProgressBars(habits){
   progressList.innerHTML = "";
 
   habits.forEach(habit => {
-    const startDate = new Date(habit.start);
-    const endDate = habit.end && habit.end !== "Never" ? new Date(habit.end) : null
-    const today = new Date(getTodayDate());
+    const start = new Date(habit.start)
+    const end   = new Date(habit.end)
+    const today = new Date()
+
 
     let progress = 0 ;
 
-    if(endDate){
-      const TotalDuration = (endDate - startDate) / (1000 * 60 * 60 * 24);
-      const elapsed = (today -  start) / (1000*60*60*24);
-      progress = Math.min((elapsed / TotalDuration) * 100,100);
+    if(end){
+      const ms = 1000*60*60*24;
+      const total = Math.max(1, Math.floor((end - start)/ms) + 1);
+      const elapsed = Math.max(0, Math.floor((today - start)/ms) + 1);
+
+      progress = Math.min((elapsed / total) * 100,100);
+      // console.log((elapsed / TotalDuration) * 100,100)
+
     }
     else{
       progress = habit.streak * 10;
     }
 
+    if (today < start || habit.status === "Pending" || habit.status === "Missed") progress = 0;
+
     const div = document.createElement("div");
     div.classList.add("progress-item");
+    console.log(progress)
 
     div.innerHTML = `
      <h3> ${habit.name} <span style="font-size:0.8rem ; color:#7a7a7a ">(${habit.status})</span></div>

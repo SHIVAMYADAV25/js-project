@@ -29,6 +29,7 @@ form.addEventListener("submit" , function(e) {
         frequency:frequency,
         lastDoneDate:null,
         missedDays : 0,
+        highestStreak: 0
     }
 
     let habits = getHabits();

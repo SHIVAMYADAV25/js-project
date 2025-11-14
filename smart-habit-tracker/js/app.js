@@ -40,14 +40,16 @@ export function renderHabit(filter_habit){
 // access row 
 // today's date && status = pending
 
-// document.getElementById("Todaydata").addEventListener("click" , (e) =>{
-//     const habits = getHabits();
-//     let todayDate = getTodayDate();
+document.getElementById("Todaydata").addEventListener("click" , (e) =>{
+    const habits = getHabits();
+    let todayDate = getTodayDate();
 
-//     habits.forEach( habit => {
-//         if(habit.)
-//     });
-// })
+    let todayHabit =  habits.filter(h =>{
+        return h.start <= todayDate && (h.end >= todayDate || h.end === Never)
+    })
+    console.log(todayHabit)
+    renderHabit(todayHabit)
+})
 
             
 
@@ -87,17 +89,20 @@ rows.forEach(row => {
                     if(status === "done" && habit.lastDoneDate === todayDate){
                         return
                     }
-                    if(status === "pending" || status === "Missed"){
+                    if(status === "pending" || status === "missed"){
+                        
                         if(habit.lastDoneDate !== todayDate){
                             habit.streak += 1;
                             habit.lastDoneDate = todayDate;
+                            if (habit.streak > habit.highestStreak) {
+                                habit.highestStreak = habit.streak;
+                            }
                             // console.log(habit.lastDoneDate);
                             
                         }
                         habit.status = "Done";
                     }
-
-
+                    
                     saveHabits(allHabits);
                     renderHabit(allHabits);
                     attachRowEvents()
@@ -122,14 +127,14 @@ function checkStreakOnLoad() {
   allHabits.forEach(habit => {
     const startDate = new Date(habit.start);
 
-    // 🚫 If already done today — don't touch anything
+    //  If already done today — don't touch anything
     if (habit.lastDoneDate === today && habit.status === "Done") {
       return;
     }
 
     const diffStart = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
 
-    // 🔓 Starts today
+    //  Starts today
     if (diffStart === 0) {
       habit.status = "Pending";
       habit.lastDoneDate = habit.lastDoneDate || null;
@@ -137,30 +142,37 @@ function checkStreakOnLoad() {
       return;
     }
 
-    // 🔓 Unlock if past start date
+    //  Unlock if past start date
     if (habit.status === "Locked" && now >= startDate) {
       habit.status = "Pending";
     }
 
-    // 🛑 Not started yet → skip
+    // Not started yet → skip
     if (now < startDate) return;
 
-    // 🛑 No lastDoneDate → skip missed logic
+    //  No lastDoneDate → skip missed logic
     if (!habit.lastDoneDate || isNaN(new Date(habit.lastDoneDate))) return;
 
     const last = new Date(habit.lastDoneDate);
     const diffDay = Math.floor((now - last) / (1000 * 60 * 60 * 24));
 
-    if (diffDay === 0) return; // done today ✅
+    if (diffDay === 0) {
+    // done today
+    habit.status = "Done";
+    } 
     else if (diffDay === 1) {
-    //   habit.streak = 0;
-    //   habit.missedDays = (habit.missedDays || 0) + 1;
-      habit.status = "Pending";
-    } else if (diffDay > 1) {
-      habit.missedDays = (habit.missedDays || 0) + (diffDay - 1);
-      habit.streak = 0;
-      habit.status = "Missed";
+        // missed yesterday but today is a new chance
+        habit.missedDays = 1;
+        habit.streak = 0;
+        habit.status = "Pending";
+    } 
+    else if (diffDay > 1) {
+        // missed many previous days
+        habit.missedDays = diffDay - 1;   // <-- recompute, NOT +=
+        habit.streak = 0;
+        habit.status = "Missed";
     }
+
   });
 
   saveHabits(allHabits);

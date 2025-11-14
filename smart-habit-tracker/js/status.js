@@ -104,7 +104,7 @@ function listTable(){
             <tr>
                 <td>${e.name}</td>
                 <td>${e.streak}</td>
-                <td>22</td>
+                <td>${e.highestStreak}</td>
                 <td>${e.missedDays}</td>
                 <td>${e.start}</td>
                 <td>${e.end}</td>
