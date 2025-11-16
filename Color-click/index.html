@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="show"> hello </div>
+    <button id="btn" >change</button>
+</body>
+<script>
+    let btn = document.getElementById("btn");
+    let div = document.getElementById("show");
+    console.log(div)
+
+    btn.addEventListener("click" , function(e){
+        let col1 = Math.floor(Math.random() * 256)
+        let col2 = Math.floor(Math.random() * 256)
+        let col3 = Math.floor(Math.random() * 256)
+
+        console.log(`rgb(${col1} , ${col2} , ${col3})`);
+
+        div.style.backgroundColor = `rgb(${col1} , ${col2} , ${col3})`;
+    })
+</script>
+</html>
