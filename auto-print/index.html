@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div></div>
+        <button id="Start">Start</button>
+        <button id="Stop">Stop</button>
+    </div>
+</body>
+    <script>
+        let Start = document.getElementById("Start");
+        let Stop = document.getElementById("Stop");
+        function color(){
+            let col1 = "#"
+            let pick = "0123456789abcdef"
+
+            for(let i = 0 ; i < 6;i++){
+                let cho = Math.floor(Math.random()*16)
+                col1 += pick[cho];
+            }
+
+            return col1
+        }
+
+        let inter
+
+        Start.addEventListener("click",() =>{
+            function changebg(){
+                document.body.style.backgroundColor = color();
+            }
+
+            if(!inter){
+                inter = setInterval(changebg,1000);
+                console.log(inter)
+            }
+        })
+
+        Stop.addEventListener("click",() => {
+            let a = clearInterval(inter);
+            inter=null
+        })
+    </script>
+</html>

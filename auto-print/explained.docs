@@ -1,0 +1,7 @@
+similar to color-click
+but use of auto generation which is made by setinterval 
+and stoping it with clearInterval
+
+setinterval work by re-running the function in limited period of time again again
+clearInterval kills the process of re-rendering the color 
+means it kill the setinterval process
