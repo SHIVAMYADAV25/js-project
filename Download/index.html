@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'helvetica neue';
+    }
+
+    html,
+    body {
+    height: 100%;
+    width: 100%;
+    }
+
+    body {
+    overflow: hidden;
+    }
+
+    main {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .card p{
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 12px;
+    font-size: 20px;
+    background-color: rgb(255, 247, 249);
+    border-radius:12px;
+    border: none;
+    font-weight: 500;
+    }
+
+    .card p span{
+    font-weight: 600;
+    color: royalblue;
+    }
+    
+    .card{
+        background-color:rgb(255, 237, 237);
+        padding: 25px;
+        border-radius:18px;
+    }
+
+    .outer{
+        width:100%;
+        height:20px;
+        border-radius:50px;
+        background-color: rgb(63, 63, 63);
+    }
+
+    .inner{
+        height:100%;
+        width:0px;
+        background-color: greenyellow;
+        border-radius: 50px;
+    }
+
+    .bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    }
+
+    .bottom h2{
+    font-size: 60px;
+    font-family: monospace;
+    }
+
+    .bottom button{
+    padding: 12px 25px;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+
+    font-weight: 600;
+    border: 0;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+    z-index: 9;
+    }
+
+    
+    .bottom button:active{
+    scale: 0.95;
+    }
+
+    h1{
+    white-space: nowrap;
+    } 
+    </style>
+</head>
+<body>
+
+    <main>
+    
+    <div class="card">
+      <p>Click on the button below to download <span>song.mp3</span> file</p>
+      <div class="outer">
+        <div id="inner" class="inner"></div>
+      </div>
+
+      <div class="bottom">
+        <h2>0%</h2>
+        <button>Download</button>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+
+<script>
+    let h2 = document.querySelector("h2");
+    let inner = document.getElementById("inner");
+    let btn = document.querySelector("button");
+
+    // console.log(inner)
+
+    let grow = 0;
+
+    btn.addEventListener("click" , () =>{
+        btn.style.pointerEvents = 'none';
+        console.log("hello")
+
+        let num = Math.floor(Math.random()*50);
+
+        var int = setInterval(() => {
+            // console.log("hello")
+            grow++
+            h2.innerHTML = grow+'%'
+            inner.style.background = "red";
+            inner.style.width = grow + "%";
+        },num);
+
+
+        setTimeout(()=>{
+            clearInterval(int);
+            btn.innerText = "Downloaded"
+            btn.style.opacity = 0.5;
+        },num*100)
+    })
+</script>
+</html>
