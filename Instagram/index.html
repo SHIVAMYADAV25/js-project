@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Document</title>
+    <style>
+        body {
+            width: 100%;
+        }
+
+        main {
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            }
+
+        .card{
+            background-color: white;
+            width: 200px;
+            border-radius: 10px;
+            padding: 20px;
+            position: absolute;
+            }
+        .card div{
+  position: relative;
+  overflow: hidden;
+}
+
+.card img{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.card h2{
+  font-size: 20px;
+  text-align: center;
+}
+
+.card i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    opacity: 1;
+    background-image: url(https://t3.ftcdn.net/jpg/01/14/77/58/360_F_114775804_4yfG9qbKp1NlF1RLo4MUlGIVj9MWhnnc.jpg);
+    background-size: cover;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transform: translate(-50%,-50%) scale(0) rotate(-60deg);
+    transition: all cubic-bezier(.65,1,.77,1.44) 0.4s;
+}
+    </style>
+</head>
+<body>
+    <main>
+     <div class="card">
+        <div>
+        <img
+        src="https://images.unsplash.com/photo-1763063556535-5f6174a5c5d4?q=80&w=654&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="">
+        <i id="love" class="ri-heart-3-fill"></i>
+        </div>
+        <h2>Zara Ali Khan</h2>
+     </div>
+    </main>
+</body>
+
+<script>
+    var img = document.querySelector('img');
+    var love = document.querySelector('#love');
+
+    img.addEventListener("dblclick",function(){
+        console.log("hello")
+        love.style.opacity = 1;
+        love.style.transform = "translate(-50%,-50%) scale(1) rotate(0deg)"
+
+        setTimeout(function(){
+            love.style.transform = "translate(-50,-50) scale(1) rotate(60deg)"
+        },800)
+
+         setTimeout(function () {
+        love.style.opacity = 0
+        }, 1000)
+
+        setTimeout(function () {
+        love.style.transform = 'translate(-50%,-50%) scale(0) rotate(-60deg)'
+    }, 1200)
+    })
+</script>
+</html>
