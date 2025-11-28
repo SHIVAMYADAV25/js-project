@@ -1,140 +1,192 @@
- * {
+/* reset */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'helvetica neue';
- }
- 
- body{
-    background-color: black;
- }
-
- html,
-body {
-  height: 100%;
-  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
- main{
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(to right bottom ,rgb(26,26,26),rgb(30,30,30),black);
-    padding: 20px;
- }
+html, body {
+  height: 100%;
+  width: 100%;
+  background: #000;
+  color: #fff;
+}
 
- section{
-    height: 100%;
-    width: 350px;
-    background-color: black;
-    border-radius: 10px;
-    margin: auto;
-    /* overflow: hidden; */
- }
+main {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, rgb(26,26,26), rgb(30,30,30), #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
- .all-reels{
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
- }
+/* Visible "phone" frame */
+.reels-frame {
+  width: 350px;
+  height: 90vh; /* make it almost full screen */
+  border-radius: 12px;
+  background: #000;
+  overflow: hidden;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+}
 
- .all-reels::-webkit-scrollbar{
+/* scrolling container */
+.all-reels {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.all-reels {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.all-reels::-webkit-scrollbar {
     display: none;
- }
+}
 
- .reel{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: aqua;
-    border-radius: 12px;
-    color: aliceblue;
-    margin-bottom: 20px;
-    scroll-snap-align:start ;
-    scroll-snap-stop: always;
-    /* overflow: hidden; */
- }
 
- #main-img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
- }
+/* each reel takes up the viewport of the container */
+.reel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  background: #111;
+  display: block;
+}
 
- .reel .bottom{
-    padding: 30px 20px;
-    background: linear-gradient(rgba(0,0,0,0)rgba(0,0,0,0.8444));
-    width: 100%;
-    position: absolute;
-    bottom:0
- }
+/* media (image or video) covers the whole reel */
+.media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
- .bottom .user{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
- }
+/* bottom info overlay */
+.reel .bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  /* gradient from transparent -> dark to make text readable */
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.35) 40%, rgba(0,0,0,0));
+  z-index: 5;
+  pointer-events: none; /* icons/buttons inside will override */
+}
 
- .bottom .user img{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
- }
+/* user row */
+.bottom .user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  pointer-events: auto;
+}
 
- .bottom>h3{
-    font-size: 18px;
-    font-weight: 400;
- }
+.bottom .user img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 
- .bottom .user h4{
-    font-size: 16px;
-    font-weight: 500;
- }
+/* user meta & follow */
+.user-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 
- .bottom .user button{
-    color: aliceblue;
-    background-color: transparent;
-    padding: 2px 4px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 5px;
-    border: 1px solid black;
- }
+.user-meta h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
 
- .right{
-    width: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 27px;
-    text-align: center;
-    position: absolute;
-    right: 0;
-    bottom: 12%;
-    /* transform: translateX(100%); */
+.follow {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  cursor: pointer;
+}
 
- }
+/* caption */
+.caption {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 6px;
+  color: #e9e9e9;
+}
 
- .right i {
-    font-size: 20px;
-    font-weight: 500;
- }
+/* right side icons */
+.right {
+  position: absolute;
+  right: 8px;
+  bottom: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 6;
+  pointer-events: auto;
+  align-items: center;
+  width: 56px;
+}
 
- .right h6{
-    font-size: 14px;
-    font-weight: 500;
- }
+/* icon buttons */
+.icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  padding: 6px;
+  transition: transform 0.14s ease, opacity 0.14s ease;
+}
 
- .right > div{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
- }
+.icon-btn:active,
+.icon-btn:focus {
+  transform: scale(0.96);
+  outline: none;
+}
 
- .right h4{
-    cursor: pointer;
- }
+.icon-btn i {
+  font-size: 22px;
+}
+
+.icon-btn .count {
+  font-size: 12px;
+  color: #dcdcdc;
+}
+
+/* hover / focus effect */
+.icon-btn:hover {
+  transform: translateY(-4px);
+  opacity: 0.95;
+}
+
+/* hide scrollbar visually but keep keyboard-scrollable */
+/* .all-reels::-webkit-scrollbar { width: 8px; }
+.all-reels::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 8px; }
+.all-reels { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.06) transparent; } */
+
+/* small devices: make container narrower if needed */
+@media (max-width: 420px) {
+  .reels-frame { width: 100%; height: 100vh; border-radius: 0; }
+}
