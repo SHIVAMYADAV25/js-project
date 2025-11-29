@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Examples</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 40px;
+        background: #111;
+        color: #eee;
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-top: 40px;
+        color: #0f0;
+        font-weight: 500;
+    }
+
+    /* -----------------------
+       1. Conic Gradient
+    ------------------------ */
+    .conic-box {
+        width: 180px;
+        height: 180px;
+        background: conic-gradient(
+            red,
+            yellow,
+            lime,
+            cyan,
+            blue,
+            magenta,
+            red
+        );
+        border-radius: 50%;
+        margin: 20px 0;
+    }
+
+    /* -----------------------
+       2. Box Shadow
+    ------------------------ */
+    .shadow-box {
+        width: 220px;
+        height: 120px;
+        background: #222;
+        border-radius: 10px;
+        margin: 20px 0;
+        box-shadow: 
+            0 5px 15px rgba(0, 0, 0, 0.6),
+            0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    /* -----------------------
+       3. Text Shadow
+    ------------------------ */
+    .shadow-text {
+        font-size: 2rem;
+        margin: 25px 0;
+        color: white;
+        text-shadow:
+            3px 3px 5px rgba(0, 255, 0, 0.6),
+            -3px -3px 8px rgba(0, 255, 255, 0.3);
+    }
+
+    /* -----------------------
+       4. Keyframes Animation
+    ------------------------ */
+    .animate-box {
+        width: 100px;
+        height: 100px;
+        background: #0f0;
+        border-radius: 8px;
+        margin: 20px 0;
+        animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+            background: #0f0;
+        }
+        50% {
+            transform: rotate(180deg);
+            background: #ff0;
+        }
+        100% {
+            transform: rotate(360deg);
+            background: #0f0;
+        }
+    }
+
+</style>
+</head>
+
+<body>
+
+    <h2>1. Conic Gradient</h2>
+    <div class="conic-box"></div>
+
+    <h2>2. Box Shadow</h2>
+    <div class="shadow-box"></div>
+
+    <h2>3. Text Shadow</h2>
+    <div class="shadow-text">Glowing Text Shadow</div>
+
+    <h2>4. Keyframe Animation</h2>
+    <div class="animate-box"></div>
+
+</body>
+</html>
