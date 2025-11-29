@@ -6,7 +6,8 @@ const data = [
     "caption": "Morning hustle never stops.",
     "like_count": 1450,
     "comment_count": 87,
-    "share_count": 22
+    "share_count": 22,
+    "isLiked" : true,
   },
   {
     "video_url": "https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_2mb.mp4",
@@ -15,7 +16,8 @@ const data = [
     "caption": "Small steps, big progress.",
     "like_count": 980,
     "comment_count": 41,
-    "share_count": 10
+    "share_count": 10,
+    "isLiked" : false
   },
   {
     "video_url": "https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_5mb.mp4",
@@ -24,7 +26,8 @@ const data = [
     "caption": "Caught this moment perfectly.",
     "like_count": 2210,
     "comment_count": 112,
-    "share_count": 35
+    "share_count": 35,
+    "isLiked" : true
   },
   {
     "video_url": "https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_3mb.mp4",
@@ -92,12 +95,13 @@ const data = [
 ]
 
 
+
 let allReel = document.querySelector(".all-reels");
 
 function DataShow(){
-
+allReel.innerHTML=""; // IMPORTANT — clear old UI
 data.forEach((e,idx)=>{
-  allReel.innerHTML += ` <article class="reel" ${idx}>
+  allReel.innerHTML += ` <article class="reel">
   <video class="media" autoplay muted loop playsinline>
     <source src="./v1.mp4" type="video/mp4" />
   </video>
@@ -110,7 +114,7 @@ data.forEach((e,idx)=>{
 
       <div class="user-meta">
         <h4>${e.username}</h4>
-        <button class="follow">Follow</button>
+        <button class="follow" data-id="${idx}">${e.follow ? "Following":"Follow"}</button>
       </div>
     </div>
 
@@ -118,7 +122,7 @@ data.forEach((e,idx)=>{
   </div>
 
   <aside class="right">
-    <button class="icon-btn like"><i class="ri-heart-line" id="like"></i><span>${e.like_count}</span></button>
+    <button class="icon-btn like" data-id="${idx}"><i class="${e.isLiked ? "ri-heart-fill" : "ri-heart-line"}" id="${idx}"></i><span>${e.like_count}</span></button>
     <button class="icon-btn"><i class="ri-chat-1-line"></i><span>${e.comment_count}</span></button>
     <button class="icon-btn"><i class="ri-share-line"></i><span>${e.share_count}</span></button>
     <button class="icon-btn"><i class="ri-more-2-line"></i></button>
@@ -128,8 +132,32 @@ data.forEach((e,idx)=>{
 })
 
 }
-let article = document.querySelector("article");
-console.log(article)
+
+allReel.addEventListener("click",(e)=>{
+  console.log();
+  if(e.target.closest(".like")){
+    let id = e.target.closest(".like").dataset.id
+    let item = data[id];
+
+    item.isLiked = !item.isLiked;
+    item.like_count += item.isLiked? 1 : -1;
+
+    DataShow();
+    return;
+  }
+
+
+  if(e.target.classList.contains("follow")){
+    let id = e.target.dataset.id;
+    let item = data[id];
+
+    item.follow = !item.follow;
+
+    DataShow();
+    return;
+  }
+
+});
 
 
 DataShow();
