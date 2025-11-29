@@ -1,0 +1,27 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+}
+
+:root{
+    --x:400px;
+    --y:400px;
+}
+
+body{
+background-image: url(./pexels-lucastranimages-27629352.jpg);
+background-size: cover;
+}
+
+.box{
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(150px at var(--x) var(--y),rgba(255,255,255,0),rgba(0, 0, 0, 0.644));
+}
