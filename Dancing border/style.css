@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+@property --rotate{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes borderAnimate {
+    from{
+        --rotate:0deg;
+    }
+
+    to{
+        --rotate:360deg;
+    }
+}
+
+.card {
+    max-width: 320px;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(black) padding-box
+    ,conic-gradient(from var(--rotate),black,rgb(255, 0, 98),black) border-box;
+    border: 5px solid rgba(255, 255, 255, 0);
+    animation: borderAnimate 5s infinite linear;
+    animation-play-state: paused;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    box-shadow: 0 0 60px rgb(255,0,123);
+    animation-play-state: running;
+    transform: scale(1.05);
+    color: rgb(255, 0, 98);
+    text-shadow: 0 0 10px rgb(255,0,123);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.card p {
+    font-size: 14px;
+    /* color: #555; */
+}
