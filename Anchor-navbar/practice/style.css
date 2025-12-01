@@ -47,8 +47,7 @@ body {
     pointer-events: none;
     position-anchor: --some-anchor;
     transition: all 0.3s linear;
-    mix-blend-mode: exclusion;
-    
+    mix-blend-mode: exclusion; 
 }
 
 .box:hover{
