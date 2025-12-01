@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    anchor-name: --some-anchor;
+}
+
+.box{
+    height: 200px;
+    width: 200px;
+    transition: transform 0.5s ease;
+}
+
+.box:hover{
+    anchor-name: --some-anchor;
+}
+
+.red{
+    background-color: #da1313;
+}
+
+.blue{
+    background-color: #180de8;
+}
+
+.green{
+    background-color: #5bec0d;
+}
+
+.anchor{
+    background-color: #b9b9b9;
+    border-radius: 10px;
+    position: absolute;
+    top: anchor(top);
+    left: anchor(left);
+    right: anchor(right);
+    bottom: anchor(bottom);
+    pointer-events: none;
+    position-anchor: --some-anchor;
+    transition: all 0.3s linear;
+    mix-blend-mode: exclusion;
+    
+}
+
+.box:hover{
+    transform: scale(1.2);
+}
+
+body:has(.box:hover) .box{
+    transform: scale(0.8);
+}
